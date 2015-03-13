@@ -1,0 +1,67 @@
+
+/**
+ * 全体のレイアウト
+ * 
+ **/
+body#body_element {
+	margin: 0px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	overflow:hidden;	// スクロールバー非表示.
+	}
+div#selection_panel {width:322px; z-index: 2;}
+div#map_panel {position: absolute; top:0; left:322px; bottom:0; z-index: 1; zoom:1;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * 
+ * 施設検索用タブcss
+ * 
+ */
+/* ▼(A)表示領域全体 */
+div.tabbox { margin: 0px; padding: 0px; width: 322px; }
+
+/* ▼(B)タブ部分 */
+p.tabs { margin: 0px; padding: 0px; }
+p.tabs a {
+   /* ▼(B-2)リンクをタブのように見せる */
+   display: block; width: 5em; float: left;
+   margin: 0px 1px 0px 0px; padding: 3px;
+   text-align: center;
+}
+/* ▼(B-3)各タブの配色 */
+p.tabs a.tab1 { background-color: blue;  color: white; }
+p.tabs a.tab2 { background-color: #aaaa00; color:white;}
+p.tabs a.tab3 { background-color: red;   color: white; }
+p.tabs a.tab4 { background-color: #008000;   color: white; }
+p.tabs a:hover { color: yellow; }
+
+/* ▼(C)タブ中身のボックス */
+div.tab {
+   /* ▼(C-2)ボックス共通の装飾 */
+   height: 100%;  overflow: auto; clear: left;
+}
+/* ▼(C-3)各ボックスの配色 */
+div#tab1 { border: 2px solid blue; background-color: #ccffff; }
+div#tab2 { border: 2px solid #aaaa00; background-color: #ffffcc; }
+div#tab3 { border: 2px solid red; background-color: #ffcccc; }
+div#tab4 { border: 2px solid #008000; background-color: #90EE90; }
+div.tab p { margin: 1em;}
+
+/* チェックボックスにマウスを乗せた時に、マウスをポインタに変更 */
+label, input[type='checkbox']{
+	cursor: pointer;
+}
+

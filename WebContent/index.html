@@ -1,0 +1,83 @@
+<!DOCTYPE html><!-- ドキュメントタイプを宣言する(html5) -->
+<html lang='ja'>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"><!-- 文字コード指定？ -->
+<meta http-equiv="Content-Script-Type" content="text/javascript"><!-- デフォルトのスクリプト言語の指定 -->
+<meta http-equiv="pragma" content="non-cache"><!-- キャッシュ見ない -->
+<meta http-equiv="cache-control" content="non-cache"><!-- キャッシュ見ない -->
+<meta http-equiv="expires" content="0"><!-- キャッシュ見ない -->
+<title>Osm LeafLet</title>
+
+<!-- css読み込み -->
+<link rel="stylesheet" type="text/css" href="css/mainPage.css">
+<!-- <script type="text/css" src="css/mainPage.css"></script> -->
+<!-- jquery -->
+<script type="text/javascript" src="js/lib/jquery-2.1.0.min.js"></script>
+<!-- global numver -->
+<script type="text/javascript" src="js/globalStaticNumber.js"></script>
+<!-- デバッグ用 -->
+<!--<script type="text/javascript" src="js/pMethod.js"></script>-->
+
+<!--外部HTML読み込み-->
+<script type="text/javascript">
+	$(function(){
+		$("#tab1").load("./html/menuTab/tab1.html");
+		$("#tab2").load("./html/menuTab/tab2.html");
+		$("#tab3").load("./html/menuTab/tab3.html");
+		$("#tab4").load("./html/menuTab/tab4.html");
+	});
+</script>
+
+<!-- leaflet-->
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+<!--[if lte IE 8]>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+<![endif]-->
+<script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+<script type="text/javascript" src="js/lib/leaflet.ajax.min.js"></script>
+
+
+<!-- 独自処理 -->
+<script type="text/javascript" src="js/init.js"></script>	<!-- 初期処理 -->
+<script type="text/javascript" src="js/drawMap.js"></script>	<!-- 地図描画処理 -->
+<!--<script type="text/javascript" src="js/drawStroke3.js"></script>	<!-- ストローク描画処理 -->
+<!--<script type="text/javascript" src="js/event/mapEvent.js"></script><!-- 地図のイベント処理 -->
+<!-- <script type="text/javascript" src="js/mouseEventGet.js"></script> -->
+<!-- イベント取得 -->
+<script type="text/javascript" src="js/event/tabSelect/changeTab.js"></script>
+<script type="text/javascript" src="js/event/tabSelect/shopCategorySelect.js"></script>
+<script type="text/javascript" src="js/event/tabSelect/shopName.js"></script>
+<script type="text/javascript" src="js/event/resizeEvent.js"></script>
+
+
+</head>
+
+<body id='body_element'>
+
+
+<!-- 全コンテンツ -->
+<div id='contents'>
+	<!-- 左のメニュー -->
+	<div id='selection_panel'>
+		<!-- 施設カテゴリ関係 -->
+		<div class="tabbox">
+		   <p class="tabs">
+		      <a href="#" class="tab1">basic</a>
+		      <a href="#" class="tab2">category</a>
+		      <a href="#" class="tab3">ordering</a>
+		      <a href="#" class="tab4">others</a>
+		   </p>
+		   <div id="tab1" class="tab"></div>
+		   <div id="tab2" class="tab"></div>
+		   <div id="tab3" class="tab"></div>
+		   <div id="tab4" class="tab"></div>
+		</div>
+	</div>
+	<!-- 右側の地図パネル -->
+	<div id ='map_panel'>
+		<div id='map_element' style='width: 500px; height: 500px; border: solid 1px #999;'></div>
+	</div
+</div>
+
+</body>
+</html>
