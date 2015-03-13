@@ -17,5 +17,5 @@ osmLeaflet01_01
     * jQuery
 * postgreSQL
 * PostGIS
-* osm2po
+* [osm2po](http://osm2po.de/)
 * Java
