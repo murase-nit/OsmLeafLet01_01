@@ -23,8 +23,17 @@ $(function(){
 	// 道路の表示.
 //	var road = new L.GeoJSON.AJAX("http://localhost:8080/OsmLeafLet01_01/MainServlet?type=GetRoadDataServlet&upperLeftLng="+map.getBounds().getWest()+"&upperLeftLat="+map.getBounds().getNorth()+"&lowerRightLng="+map.getBounds().getEast()+"&lowerRightLat="+map.getBounds().getSouth()+"&width="+g_GlobalStaticNumber.windowSize.x+"&height="+g_GlobalStaticNumber.windowSize.y+"").addTo(map);
 
+var myStyle = {
+    "color": "#000000",
+    "weight": 5,
+    "opacity": 0.65
+};
+
 // ストロークの表示.
-var road = new L.GeoJSON.AJAX("http://localhost:8080/OsmLeafLet01_01/MainServlet?type=GetFatStrokeServlet&upperLeftLng="+map.getBounds().getWest()+"&upperLeftLat="+map.getBounds().getNorth()+"&lowerRightLng="+map.getBounds().getEast()+"&lowerRightLat="+map.getBounds().getSouth()+"&width="+g_GlobalStaticNumber.windowSize.x+"&height="+g_GlobalStaticNumber.windowSize.y+"&category=Amenity:parking").addTo(map);
+var road = new L.GeoJSON.AJAX("http://localhost:8080/OsmLeafLet01_01/MainServlet?type=GetFatStrokeServlet&upperLeftLng="+map.getBounds().getWest()+"&upperLeftLat="+map.getBounds().getNorth()+"&lowerRightLng="+map.getBounds().getEast()+"&lowerRightLat="+map.getBounds().getSouth()+"&width="+g_GlobalStaticNumber.windowSize.x+"&height="+g_GlobalStaticNumber.windowSize.y+"&category=Amenity:parking",{style:myStyle}).addTo(map);
+
+//L.geoJson(geojsonFeature).addTo(map);
+
 
 	// レイヤーの構成
 	// ベースレイヤー(デフォルト表示).
