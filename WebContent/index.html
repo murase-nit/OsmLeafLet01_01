@@ -20,12 +20,21 @@
 
 <!--外部HTML読み込み-->
 <script type="text/javascript">
-	$(function(){
+$(function(){
 		$("#tab1").load("./html/menuTab/tab1.html");
 		$("#tab2").load("./html/menuTab/tab2.html");
 		$("#tab3").load("./html/menuTab/tab3.html");
 		$("#tab4").load("./html/menuTab/tab4.html");
 	});
+</script>
+
+<script>
+  window.onload = function() {
+//  	g_tab1event.init();
+  	g_tab2event.init();
+  	g_tab3event.init();
+//  	g_tab4event.init();
+	};
 </script>
 
 <!-- leaflet-->
@@ -76,7 +85,7 @@
 	<!-- 右側の地図パネル -->
 	<div id ='map_panel'>
 		<div id='map_element' style='width: 500px; height: 500px; border: solid 1px #999;'></div>
-	</div
+	</div>
 </div>
 
 </body>

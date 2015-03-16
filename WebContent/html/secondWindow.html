@@ -1,0 +1,50 @@
+<!DOCTYPE html><!-- ドキュメントタイプを宣言する(html5) -->
+<html lang='ja'>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"><!-- 文字コード指定？ -->
+<meta http-equiv="Content-Script-Type" content="text/javascript"><!-- デフォルトのスクリプト言語の指定 -->
+<meta http-equiv="pragma" content="non-cache"><!-- キャッシュ見ない -->
+<meta http-equiv="cache-control" content="non-cache"><!-- キャッシュ見ない -->
+<meta http-equiv="expires" content="0"><!-- キャッシュ見ない -->
+<title>Osm LeafLet</title>
+
+<!-- css読み込み -->
+<link rel="stylesheet" type="text/css" href="../css/mainPage.css">
+<!-- <script type="text/css" src="css/mainPage.css"></script> -->
+<!-- jquery -->
+<script type="text/javascript" src="../js/lib/jquery-2.1.0.min.js"></script>
+<!-- global numver -->
+<script type="text/javascript" src="../js/globalStaticNumber.js"></script>
+<!-- デバッグ用 -->
+<!--<script type="text/javascript" src="js/pMethod.js"></script>-->
+
+
+<!-- 独自処理 -->
+<script type="text/javascript" src="../js/init.js"></script>	<!-- 初期処理 -->
+<!-- 地図の描画 -->
+<script type="text/javascript" src="../js/secondWindow/drawSecondMap.js"></script>
+<!-- イベント取得 -->
+<script type="text/javascript" src="../js/event/resizeEvent.js"></script>
+<script type="text/javascript" src="../js/secondWindow/secondWindowResizeEvent.js"></script>
+
+</head>
+
+<body id='body_element'>
+
+
+<!-- 全コンテンツ -->
+<div id='contents'>
+<div style="position: relative;" id="secondPanel">
+<!-- 地図の大きさをdrawMap.jsで決めている -->
+	<canvas id="layer0" style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
+	<canvas id="layer1" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
+	<canvas id="layer2" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
+	<canvas id="layer3" style="position: absolute; left: 0; top: 0; z-index: 3;"></canvas>
+	<canvas id="aa" style="position: absolute; left: 0; top: 0; z-index: 999;"></canvas>
+	<!-- イベント取得用キャンバスタグ -->
+	<canvas id="eventLayer" style="position: absolute; left: 0; top: 0; z-index: 9999;"></canvas>
+</div>
+</div>
+
+</body>
+</html>

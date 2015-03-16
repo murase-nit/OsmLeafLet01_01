@@ -5,8 +5,9 @@ function Tab1Event(){
 
 }
 
+
 $(function(){
-	//$("button#draw_road").bind("click", g_drawRoad);
+	
 });
 
 /**

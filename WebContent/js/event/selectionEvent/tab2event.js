@@ -26,7 +26,7 @@ $(function(){
  * 施設カテゴリの選択処理
  */
 // カテゴリの表示( ページ読み込み後の処理.)
-window.onload = function(){
+g_tab2event.init= function(){
 			for(var key in g_tab2event.shopName){
 				for(var i=0; i<g_tab2event.shopName[key].length; i++){
 					//console.log("i:"+i+" j:"+j);
@@ -43,7 +43,9 @@ window.onload = function(){
 	/** "すべて"以外をチェック */
 	//$("div.tab").children().children(":gt(1)").bind("click", uncheckAll);
 	$("div#tab2").children(":gt(0)").children().bind("click", g_tab2event.uncheckAll);
+//};
 };
+
 
 /**
  * カテゴリの種類.

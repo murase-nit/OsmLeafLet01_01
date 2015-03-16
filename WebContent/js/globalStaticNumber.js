@@ -14,6 +14,8 @@ function GlobalStaticNumber(){
 		this.hostName =  "133.68.13.112:8080";
 		// ウインドウサイズ.
 		this.windowSize = {x:100, y:100};
+		// 中心の緯度経度.
+		this.centerLngLat = {lng:136.93096, lat:35.157789};
 }
 
 

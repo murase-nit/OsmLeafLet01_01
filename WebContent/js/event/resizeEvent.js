@@ -14,7 +14,7 @@ $(function(){
 $(window).resize(function() {
 
 	ResizeEvent.prototype.resizeWindow();
-	console.log($(window).width());
+//	console.log($(window).width());
 });
 
 function ResizeEvent(){

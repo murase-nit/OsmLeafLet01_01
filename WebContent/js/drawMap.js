@@ -3,7 +3,6 @@
  *
  */
 $(function(){
-	"use strict";
 	// 初期の地図位置スケールを指定
 	var map = L.map('map_element');
 	map.setView([35.157789, 136.93096], 16);
