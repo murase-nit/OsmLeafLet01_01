@@ -22,9 +22,9 @@ function ResizeEvent(){
 
 // ウインドウサイズに応じてレイアウトを動的に変更
 ResizeEvent.prototype.resizeWindow = function (){
-	g_GlobalStaticNumber.windowSize = {x:$(window).width(), y:$(window).height()};
-	$('div#map_element').css('width',g_GlobalStaticNumber.windowSize.x-320);
-	$('div#map_element').css('height',g_GlobalStaticNumber.windowSize.y-8);
+	g_GlobalStaticNumber.windowSize = {x:$(window).width()-320, y:$(window).height()-8};
+	$('div#map_element').css('width',g_GlobalStaticNumber.windowSize.x);
+	$('div#map_element').css('height',g_GlobalStaticNumber.windowSize.y);
 	$('div.tabbox').css('height',g_GlobalStaticNumber.windowSize.y-50);
 };
 

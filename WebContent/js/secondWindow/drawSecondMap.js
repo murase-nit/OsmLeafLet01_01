@@ -1,11 +1,6 @@
-/** 地図描画する */
-var g_drawSecondMap;
-
-$(function(){
-	g_drawSecondMap = new DrawSecondMap({lng:136.93096,lat:35.157789}, 16, {x:600, y:600});
-	g_drawSecondMap.mapDraw();
-});
-
+/**
+ * 地図描画する
+ */
 function DrawSecondMap(aLngLat, scale, aWindowSize){
 	// 地図画像描画で必要な値.
 	this._lngLat = aLngLat;
@@ -16,7 +11,7 @@ function DrawSecondMap(aLngLat, scale, aWindowSize){
 }
 
 /**
- *地図の描画 (引数：中心のxy座標)
+ * 地図の描画 (引数：中心のxy座標)
  */
 DrawSecondMap.prototype.mapDraw = function(){
 	// 地図画像描画用のcancasタグ大きさ設定.
@@ -38,7 +33,7 @@ DrawSecondMap.prototype.mapDraw = function(){
 	g_drawSecondMap.mapImage = g_drawSecondMap.img;
 	g_drawSecondMap.img.onload = function() {
 		//refer to http://www.html5.jp/canvas/how6.html
-		g_drawSecondMap.ctx.drawImage(g_drawSecondMap.img, 0, 0, g_drawSecondMap._windowSize.x,g_drawSecondMap._windowSize.y);
+		g_drawSecondMap.ctx.drawImage(g_drawSecondMap.img, 0, 0);
 	};
 	console.log('complete map draw');
 };

@@ -48,4 +48,20 @@ var road = new L.GeoJSON.AJAX("http://localhost:8080/OsmLeafLet01_01/MainServlet
 
 	// add control scale
 	L.control.scale().addTo(map);
+
+	// 各種パラメータの取得.
+	getParams();
+
+	//
+	// イベント関係
+	//
+	map.on('moveend', getParams);
+	function getParams(){
+		g_GlobalStaticNumber.centerLngLat = {lng: map.getCenter().lng, lat: map.getCenter().lat};
+		g_GlobalStaticNumber.upperLeftLngLat = {lng: map.getBounds().getWest(), lat: map.getBounds().getNorth()};
+		g_GlobalStaticNumber.lowerRightLngLat = {lng: map.getBounds().getEast(), lat: map.getBounds().getSouth()};
+		g_GlobalStaticNumber.scale = map.getZoom();
+		//console.info(map.getSize());
+	}
+
 });

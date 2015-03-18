@@ -16,6 +16,12 @@ function GlobalStaticNumber(){
 		this.windowSize = {x:100, y:100};
 		// 中心の緯度経度.
 		this.centerLngLat = {lng:136.93096, lat:35.157789};
+		// 左上の緯度経度.
+		this.upperLeftLngLat = {lng: 0, lat: 0};
+		// 右下の緯度経度.
+		this.lowerRightLngLat = {lng: 0, lat: 0};
+		// 地図のスケール.
+		this.scale = 0;
 }
 
 
