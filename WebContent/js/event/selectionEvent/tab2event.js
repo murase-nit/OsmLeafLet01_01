@@ -2,7 +2,8 @@
 var g_tab2event = new Tab2Event();
 
 function Tab2Event(){
-
+	/** 最後にチェックしたカテゴリ */
+	this.checkedCategoryLast = "Amenity:parking";
 }
 
 
@@ -12,6 +13,8 @@ $(function(){
 	$(".tab2").bind("click", {text:"#tab2"}, g_tab2event.tabChange);
 	$(".tab3").bind("click", {text:"#tab3"}, g_tab2event.tabChange);
 	$(".tab4").bind("click", {text:"#tab4"}, g_tab2event.tabChange);
+	// ボタン押したときのイベント.
+	$("#drawShop").children.bind("click", g_tab2event.drawShop);
 
 	// デフォルトのタブ.
 		var tabName ={
@@ -23,29 +26,29 @@ $(function(){
 });
 
 /**
- * 施設カテゴリの選択処理
+ * ページ読み込み後の処理.
  */
-// カテゴリの表示( ページ読み込み後の処理.)
 g_tab2event.init= function(){
-			for(var key in g_tab2event.shopName){
-				for(var i=0; i<g_tab2event.shopName[key].length; i++){
-					//console.log("i:"+i+" j:"+j);
-					$("div#tab2").append(
-							"<label for='category"+(key)+(i)+"'>"+
-							"<input type='checkbox' id='category"+(key)+(i)+"'>"+key+":"+g_tab2event.shopName[key][i] +
-							"</label>"+
-							"<br>");
-				}
-			}
+	// カテゴリの表示
+	for(var key in g_tab2event.shopName){
+		for(var i=0; i<g_tab2event.shopName[key].length; i++){
+			//console.log("i:"+i+" j:"+j);
+			$("div#tab2").append(
+					"<label for='category"+(key)+(i)+"'>"+
+					"<input type='checkbox' id='category"+(key)+(i)+"'>"+key+":"+g_tab2event.shopName[key][i] +
+					"</label>"+
+					"<br>");
+		}
+	}
 	/** "すべて"を押すとすべての項目をチェック */
-	//$("div.tab").children().children(":first").bind("click", allCheck);
-	$("div#tab2").children(":first").children().bind("click", g_tab2event.allCheck);
+	$("div#tab2>label>input[type=checkbox]:first").bind("click", g_tab2event.allCheck);
 	/** "すべて"以外をチェック */
-	//$("div.tab").children().children(":gt(1)").bind("click", uncheckAll);
-	$("div#tab2").children(":gt(0)").children().bind("click", g_tab2event.uncheckAll);
-//};
+	$("div#tab2>label>input[type=checkbox]:gt(0)").bind("click", g_tab2event.uncheckAll);
+	/** デフォルトでparkingをチェック */
+	$("input[id=categoryAmenity4]").prop("checked", true);
+	// チェックしたときのイベント.
+	$("div#tab2>label>input[type=checkbox]").click(g_tab2event.clickCheckbox);
 };
-
 
 /**
  * カテゴリの種類.
@@ -76,7 +79,7 @@ Tab2Event.prototype.allCheck = function(){
  */
 Tab2Event.prototype.uncheckAll =  function(){
 	if(!($(this).is(':checked'))){
-		$(this).parent().parent().children(":first").children().prop("checked", false);
+		$(this).parent().siblings("label[for=categoryAll0]").children().prop("checked", false);
 	}
 };
 
@@ -92,4 +95,18 @@ Tab2Event.prototype.tabChange = function(event){
 	// 非表示ブロック.
 	$(""+event.data.text).css("display", "block");
 };
+/*
+ * 施設データの表示
+ */
+Tab2Event.prototype.drawShop = function(){
 
+};
+
+/*
+ * 施設データをチェックしたときの処理
+ */
+Tab2Event.prototype.clickCheckbox = function(){
+	if($(this).is(':checked')){
+		g_tab2event.checkedCategoryLast = $(this).parent().text();
+	}
+};

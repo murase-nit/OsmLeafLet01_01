@@ -8,6 +8,9 @@ function DrawSecondMap(aLngLat, scale, aWindowSize){
 	this._scale = scale;
 	this._upperLeftLngLat = {x:null, y:null};
 	this._lowerRightLngLat = {x:null, y:null};
+	// 変形後のxyの縮尺.
+	this.xScale=1;
+	this.yScale=1;
 }
 
 /**
@@ -48,6 +51,9 @@ DrawSecondMap.prototype.resizeMapDraw = function(aResizeX, aResizeY){
 	 	height:aResizeY
 	 });
 	
+	g_drawSecondMap.xScale = aResizeX/g_drawSecondMap._windowSize.x;
+	g_drawSecondMap.yScale = aResizeY/g_drawSecondMap._windowSize.y;
+
 	var canvas = document.getElementById('layer0');
 	if ( ! canvas || ! canvas.getContext ) { return false; }
   g_drawSecondMap.ctx = canvas.getContext('2d');

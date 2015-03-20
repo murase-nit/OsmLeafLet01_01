@@ -2,6 +2,7 @@ package mySrc.coordinate;
 
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 import java.awt.Point;
 
 import java.util.ArrayList;
@@ -20,6 +21,11 @@ public class ConvertLngLatAppletCoordinate {
 	/** ウインドウサイズ */
 	private Point _windowSize;
 	
+	/** 経度1,緯度1あたりのピクセル数 */
+	public Point2D pixelPerLngLat;
+	/** 1ピクセルあたりの緯度経度 */
+	public Point2D lnglatPerPixel;
+	
 	/**
 	 * 
 	 * @param aUpperLeftLngLat	// 左上の緯度経度.
@@ -31,6 +37,11 @@ public class ConvertLngLatAppletCoordinate {
 		_upperLeftLngLat = aUpperLeftLngLat;
 		_lowerRightLngLat = aLowerRightLngLat;
 		_windowSize = aWindowSize;
+		lnglatPerPixel = new Point2D.Double(Math.abs(_upperLeftLngLat.getX()-_lowerRightLngLat.getX())/(_windowSize.getY())
+		,Math.abs(_upperLeftLngLat.getY()-_lowerRightLngLat.getY())/(_windowSize.getY()));
+		pixelPerLngLat = new Point2D.Double((_windowSize.getY()/Math.abs(_upperLeftLngLat.getX()-_lowerRightLngLat.getX()))
+				,(_windowSize.getY())/Math.abs(_upperLeftLngLat.getY()-_lowerRightLngLat.getY()));
+		
 	}
 	
 	/**

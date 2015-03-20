@@ -159,7 +159,19 @@ public class OsmStrokeDataGeom extends HandleDbTemplateSuper{
 							"), flatted_arc_series" +
 						")" +
 					") as cutoutStrokeString, " +
-					" st_asGeoJson(flatted_arc_series) as geojson"+
+					" st_asGeoJson(" +
+						"st_intersection(" +
+							"st_polyFromText(" +
+								"'Polygon(("+
+									aUpperLeftLngLat.getX()+" "+aUpperLeftLngLat.getY()+","+
+									aLowerRightLngLat.getX()+" "+aUpperLeftLngLat.getY()+","+
+									aLowerRightLngLat.getX()+" "+aLowerRightLngLat.getY()+","+
+									aUpperLeftLngLat.getX()+" "+aLowerRightLngLat.getY()+","+
+									aUpperLeftLngLat.getX()+" "+aUpperLeftLngLat.getY()+
+								"))'," + HandleDbTemplateSuper.WGS84_EPSG_CODE+"" +
+							"), flatted_arc_series" +
+						")" +
+					") as geojson"+
 //					" st_asGeoJson(" +
 //					"	st_intersection(" +
 //							"st_polyFromText(" +

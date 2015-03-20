@@ -40,7 +40,8 @@ public class GetFatStrokeServlet {
 	Point _windowSize;
 	/** カテゴリ */
 	String _category;
-	/***/
+	/** すべてのストロークを返すか */
+	boolean _isGetAllStroke = false;
 	
 	// 求める値.
 	/** 緯度経度とxyの変換 */
@@ -76,17 +77,18 @@ public class GetFatStrokeServlet {
 		_windowSize = new Point(Integer.parseInt(request.getParameter("width")),
 				Integer.parseInt(request.getParameter("height")));
 		_category = request.getParameter("category");
+		_isGetAllStroke = Boolean.parseBoolean(request.getParameter("isGetAllStroke"));
 		_convert = new ConvertLngLatAppletCoordinate(_upperLeftLngLat, _lowerRightLngLat, _windowSize);
 		
 		
 		// strokeを取り出す(geomデータはこっちを使う？).
 		_osmStrokeDataGeom = new OsmStrokeDataGeom();
 		_osmStrokeDataGeom.startConnection();
-		//_osmStrokeDataGeom.insertStrokeData(_upperLeftLngLat, _lowerRightLngLat);	// ストロークを切り出さない.
+		_osmStrokeDataGeom.insertStrokeData(_upperLeftLngLat, _lowerRightLngLat);	// ストロークを切り出さない.
 		//_osmStrokeDataGeom._cutoutGeojson = _osmStrokeDataGeom._geojson;
 		//_osmStrokeDataGeom._subStrokeString = _osmStrokeDataGeom._strokeArcString;
 		//_osmStrokeDataGeom._subStrokeArc = _osmStrokeDataGeom._strokeArc;
-		_osmStrokeDataGeom.cutOutStroke(_upperLeftLngLat, _lowerRightLngLat);	// 切り出したストロークと切り出さないストロークの両方を求める.
+		_osmStrokeDataGeom.cutOutStroke(_upperLeftLngLat, _lowerRightLngLat);	// 切り出したストロークを求める.
 		_osmStrokeDataGeom.endConnection();
 		//System.out.println("_cutoutGeojson"+_osmStrokeDataGeom._cutoutGeojson);
 		// fatstrokeを取り出す.
@@ -105,7 +107,6 @@ public class GetFatStrokeServlet {
 			}
 		}
 		
-		
 		// すべてのストロークの長さを取り出す.
 		double sumShopNum=0, sumStrokeLength=0;
 		for(int i=0; i<shopNum.size(); i++){
@@ -121,11 +122,13 @@ public class GetFatStrokeServlet {
 		// 長さとお店の数で並び替え.
 		ArrayList<Double> strokeWeight = new ArrayList<>();	// ストロークの重要度(0~1).
 		for(int i=0; i<shopNum.size(); i++){
-			double shopWeight = (double)shopNum.get(i)/sumShopNum*FACILITY_PARAM;
+			double shopWeight = sumShopNum > 0 ? (double)shopNum.get(i)/sumShopNum*FACILITY_PARAM : 0;
 			//System.out.println(_shopNum.get(i));
 			//System.out.println("shopWeight"+shopWeight);
 			double lengthWeight = (double)_osmStrokeDataGeom._strokeLength.get(i)/sumStrokeLength*LENGTH_PARAM;
 			//System.out.println("lengthWeight"+lengthWeight);
+			//System.out.println("strokeLength"+_osmStrokeDataGeom._strokeLength.get(i));
+			//System.out.println("strokeLength"+_osmStrokeDataGeom._strokeLength.get(i)/sumStrokeLength*LENGTH_PARAM);
 			double weight = (shopWeight + lengthWeight)/2;
 			strokeWeight.add(weight);
 		}
@@ -133,11 +136,23 @@ public class GetFatStrokeServlet {
 		for(int i=0; i<_osmStrokeDataGeom._strokeArc.size(); i++){
 			tmp.add(i);
 		}
+		//System.out.println(strokeWeight);
+		//System.out.println("&&");
+		//System.out.println(tmp);
+		//System.exit(0);
 		QuickSort2<Double,Integer> quickSort2 = new QuickSort2<>(strokeWeight, tmp, true);
 		_orderedStrokeIndexArrayList = quickSort2.getArrayList2();
 		
+//		System.out.println("@@@@@@@@@@");
+//		for(int i=0; i<_osmStrokeDataGeom._strokeArc.size(); i++){
+//			System.out.println("orderedindex"+_orderedStrokeIndexArrayList.get(i));
+//			//System.out.println(_osmStrokeDataGeom._strokeArc.get(i));
+//			//System.out.println(_osmStrokeDataGeom._geojson.get(i));
+//		}
+//		System.out.println("@@@@@@@@@@");
+//		
 		// ストロークの描画する数.
-		int drawingStrokeNum = execSoaThreshold();
+		int drawingStrokeNum = _isGetAllStroke ? _osmStrokeDataGeom._cutoutGeojson.size() :execSoaThreshold();
 		ArrayList<String> drawingosmStrokeDataJson = new ArrayList<>();
 		for(int i=0; i<drawingStrokeNum; i++){
 			drawingosmStrokeDataJson.add(_osmStrokeDataGeom._cutoutGeojson.get(_orderedStrokeIndexArrayList.get(i)));

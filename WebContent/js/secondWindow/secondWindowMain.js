@@ -59,12 +59,14 @@ $(function(){
 		}
 	}
 console.info(g_secondWindowGlobal);
+// 地図の描画.
 	g_drawSecondMap = new DrawSecondMap(
 		g_secondWindowGlobal.centerLngLat,
 		g_secondWindowGlobal.scale,
 		g_secondWindowGlobal.windowSize);
 	g_drawSecondMap.mapDraw();
 
+// 道路の描画.
 	g_drawStrokeSecond = new DrawStrokeSecond(
 		null,
 		g_secondWindowGlobal.upperLeftLngLat,

@@ -14,22 +14,22 @@ $(function(){
 	tileLayer.addTo(map);
 
 	// マーカーを表示.
-	var mapMarker = L.marker([35.157789, 136.93096]);
-	mapMarker.addTo(map);
-	mapMarker.bindPopup('CSS3 popup. <br> ここはどこでしょうか？');
-	mapMarker.openPopup();
+	// var mapMarker = L.marker([35.157789, 136.93096]);
+	// mapMarker.addTo(map);
+	// mapMarker.bindPopup('CSS3 popup. <br> ここはどこでしょうか？');
+	// mapMarker.openPopup();
 
-	// 道路の表示.
-//	var road = new L.GeoJSON.AJAX("http://localhost:8080/OsmLeafLet01_01/MainServlet?type=GetRoadDataServlet&upperLeftLng="+map.getBounds().getWest()+"&upperLeftLat="+map.getBounds().getNorth()+"&lowerRightLng="+map.getBounds().getEast()+"&lowerRightLat="+map.getBounds().getSouth()+"&width="+g_GlobalStaticNumber.windowSize.x+"&height="+g_GlobalStaticNumber.windowSize.y+"").addTo(map);
+	// 描画のスタイル設定.
+	var myStyle = {
+	    "color": "#000000",
+	    "weight": 5,
+	    "opacity": 0.8
+	};
 
-var myStyle = {
-    "color": "#000000",
-    "weight": 5,
-    "opacity": 0.65
-};
-
-// ストロークの表示.
-var road = new L.GeoJSON.AJAX("http://localhost:8080/OsmLeafLet01_01/MainServlet?type=GetFatStrokeServlet&upperLeftLng="+map.getBounds().getWest()+"&upperLeftLat="+map.getBounds().getNorth()+"&lowerRightLng="+map.getBounds().getEast()+"&lowerRightLat="+map.getBounds().getSouth()+"&width="+g_GlobalStaticNumber.windowSize.x+"&height="+g_GlobalStaticNumber.windowSize.y+"&category=Amenity:parking",{style:myStyle}).addTo(map);
+	// ストロークの表示.
+	var newStroke = new L.GeoJSON.AJAX("http://localhost:8080/OsmLeafLet01_01/MainServlet?type=GetFatStrokeServlet&upperLeftLng="+map.getBounds().getWest()+"&upperLeftLat="+map.getBounds().getNorth()+"&lowerRightLng="+map.getBounds().getEast()+"&lowerRightLat="+map.getBounds().getSouth()+"&width="+g_GlobalStaticNumber.windowSize.x+"&height="+g_GlobalStaticNumber.windowSize.y+"&category="+g_tab2event.checkedCategoryLast,{style:myStyle});
+	var previousStroke;
+	newStroke.addTo(map);
 
 //L.geoJson(geojsonFeature).addTo(map);
 
@@ -41,8 +41,8 @@ var road = new L.GeoJSON.AJAX("http://localhost:8080/OsmLeafLet01_01/MainServlet
 	};
 	// オーバーレイレイヤー(表示するかの選択可能).
 	var overlays = {
-	    "Marker": mapMarker,
-	    "road": road,
+//	    "Marker": mapMarker,
+//	    "road": road,
 	};
 	L.control.layers(baseLayers, overlays).addTo(map);
 
@@ -52,10 +52,17 @@ var road = new L.GeoJSON.AJAX("http://localhost:8080/OsmLeafLet01_01/MainServlet
 	// 各種パラメータの取得.
 	getParams();
 
-	//
-	// イベント関係
-	//
+	///////////////////////////
+	// イベント関係///////////////
+	///////////////////////////
+	/*
+	 * 移動が完了したときの処理
+	 */
 	map.on('moveend', getParams);
+	map.on('moveend', drawStroke);
+	/*
+	 * 各種パラメータの取得
+	 */
 	function getParams(){
 		g_GlobalStaticNumber.centerLngLat = {lng: map.getCenter().lng, lat: map.getCenter().lat};
 		g_GlobalStaticNumber.upperLeftLngLat = {lng: map.getBounds().getWest(), lat: map.getBounds().getNorth()};
@@ -63,5 +70,21 @@ var road = new L.GeoJSON.AJAX("http://localhost:8080/OsmLeafLet01_01/MainServlet
 		g_GlobalStaticNumber.scale = map.getZoom();
 		//console.info(map.getSize());
 	}
+
+	/*
+	* 道路の再描画
+	*/
+	function drawStroke(){
+		console.log('drawStroke');
+		// 以前に描画した道路は削除.
+		previousStroke = newStroke;
+		map.removeLayer(previousStroke);
+		// コンソールにurlを表示.
+		console.log("http://localhost:8080/OsmLeafLet01_01/MainServlet?type=GetFatStrokeServlet&upperLeftLng="+map.getBounds().getWest()+"&upperLeftLat="+map.getBounds().getNorth()+"&lowerRightLng="+map.getBounds().getEast()+"&lowerRightLat="+map.getBounds().getSouth()+"&width="+g_GlobalStaticNumber.windowSize.x+"&height="+g_GlobalStaticNumber.windowSize.y+"&category="+g_tab2event.checkedCategoryLast);
+		// 再描画.
+		newStroke = new L.GeoJSON.AJAX("http://localhost:8080/OsmLeafLet01_01/MainServlet?type=GetFatStrokeServlet&upperLeftLng="+map.getBounds().getWest()+"&upperLeftLat="+map.getBounds().getNorth()+"&lowerRightLng="+map.getBounds().getEast()+"&lowerRightLat="+map.getBounds().getSouth()+"&width="+g_GlobalStaticNumber.windowSize.x+"&height="+g_GlobalStaticNumber.windowSize.y+"&category="+g_tab2event.checkedCategoryLast ,{style:myStyle});
+		 newStroke.addTo(map);
+	}
+
 
 });
