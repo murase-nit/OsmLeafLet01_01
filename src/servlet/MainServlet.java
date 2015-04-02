@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import servlet.src.GetFatStrokeServlet;
 import servlet.src.GetRoadDataServlet;
+import servlet.src.GetShopServlet;
 
 /**
  * メインのサーブレット
@@ -51,6 +52,9 @@ public class MainServlet extends HttpServlet {
 			break;
 		case "GetFatStrokeServlet":
 			new GetFatStrokeServlet(request, response);
+			break;
+		case "GetShopServlet":
+			new GetShopServlet(request, response);
 			break;
 		case "" :
 			break;

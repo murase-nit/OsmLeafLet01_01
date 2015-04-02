@@ -9,35 +9,40 @@ $(function(){
 
 	// // OSMのタイルレイヤーを追加
 	var tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-//	var tileLayer = L.tileLayer('http://tsgMapServer.elcom.nitech.ac.jp/osm/{z}/{x}/{y}.png', {
 		attribution : '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 	});
 	tileLayer.addTo(map);
+	// 自作のOSMタイルサーバを使う.
 	var tile2Layer = L.tileLayer('http://tsgMapServer.elcom.nitech.ac.jp/osm/{z}/{x}/{y}.png', {
 		attribution : '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 	});
 	tile2Layer.addTo(map);
 
-	// マーカーを表示.
-	// var mapMarker = L.marker([35.157789, 136.93096]);
-	// mapMarker.addTo(map);
-	// mapMarker.bindPopup('CSS3 popup. <br> ここはどこでしょうか？');
-	// mapMarker.openPopup();
-
 	// 描画のスタイル設定.
-	var myStyle = {
+	var strokeStyle = {
 	    "color": "#000000",
 	    "weight": 5,
 	    "opacity": 0.8
 	};
+	var shopStyle = {
+		"color": "#ff0000",
+		"weight": 5,
+		"opacity": 0.8
+	};
 
 	// ストロークの表示.
-	var newStroke = new L.GeoJSON.AJAX("http://"+location.host+"/OsmLeafLet01_01/MainServlet?type=GetFatStrokeServlet&upperLeftLng="+map.getBounds().getWest()+"&upperLeftLat="+map.getBounds().getNorth()+"&lowerRightLng="+map.getBounds().getEast()+"&lowerRightLat="+map.getBounds().getSouth()+"&width="+g_GlobalStaticNumber.windowSize.x+"&height="+g_GlobalStaticNumber.windowSize.y+"&category="+g_tab2event.checkedCategoryLast,{style:myStyle});
-	var previousStroke;
-	newStroke.addTo(map);
+	var newStroke;	// 描画するストローク.
+	var previousStroke;	// 前回のデータを保持する.;
+	newStroke = new L.GeoJSON.AJAX(drawStrokeUrl() ,{style:strokeStyle});
+		 newStroke.addTo(map);
+//	drawStroke();
 
-//L.geoJson(geojsonFeature).addTo(map);
-
+	// 施設データの表示.
+	var newShop = null;	// 描画する施設データ.
+	var previousShop;	// 前回の施設データ.
+	newShop = new L.GeoJSON.AJAX(drawShopUrl() ,{style:strokeStyle});
+		newShop.addTo(map);
+	//drawShop();
 
 	// レイヤーの構成
 	// ベースレイヤー(デフォルト表示).
@@ -47,9 +52,9 @@ $(function(){
 	};
 	// オーバーレイレイヤー(表示するかの選択可能).
 	var overlays = {
-//	    "Marker": mapMarker,
 //	    "road": road,
-				"stroke": newStroke
+				"stroke": newStroke//,
+//				"shop": newShop
 	};
 	L.control.layers(baseLayers, overlays).addTo(map);
 
@@ -67,6 +72,7 @@ $(function(){
 	 */
 	map.on('moveend', getParams);
 	map.on('moveend', drawStroke);
+	map.on('moveend', drawShop);
 	/*
 	 * 各種パラメータの取得
 	 */
@@ -79,19 +85,40 @@ $(function(){
 	}
 
 	/*
-	* 道路の再描画
-	*/
+	 * 道路の再描画
+	 */
 	function drawStroke(){
 		console.log('drawStroke');
-		// 以前に描画した道路は削除.
 		previousStroke = newStroke;
 		map.removeLayer(previousStroke);
 		// コンソールにurlを表示.
-		console.log("http://"+location.host+"/OsmLeafLet01_01/MainServlet?type=GetFatStrokeServlet&upperLeftLng="+map.getBounds().getWest()+"&upperLeftLat="+map.getBounds().getNorth()+"&lowerRightLng="+map.getBounds().getEast()+"&lowerRightLat="+map.getBounds().getSouth()+"&width="+g_GlobalStaticNumber.windowSize.x+"&height="+g_GlobalStaticNumber.windowSize.y+"&category="+g_tab2event.checkedCategoryLast);
+		console.log(drawStrokeUrl());
 		// 再描画.
-		newStroke = new L.GeoJSON.AJAX("http://"+location.host+"/OsmLeafLet01_01/MainServlet?type=GetFatStrokeServlet&upperLeftLng="+map.getBounds().getWest()+"&upperLeftLat="+map.getBounds().getNorth()+"&lowerRightLng="+map.getBounds().getEast()+"&lowerRightLat="+map.getBounds().getSouth()+"&width="+g_GlobalStaticNumber.windowSize.x+"&height="+g_GlobalStaticNumber.windowSize.y+"&category="+g_tab2event.checkedCategoryLast ,{style:myStyle});
+		newStroke = new L.GeoJSON.AJAX(drawStrokeUrl() ,{style:strokeStyle});
 		 newStroke.addTo(map);
 	}
+	/*
+	 * 道路を取得するためのURL
+	 */
+	function drawStrokeUrl(){
+		return "http://"+location.host+"/OsmLeafLet01_01/MainServlet?type=GetFatStrokeServlet&upperLeftLng="+map.getBounds().getWest()+"&upperLeftLat="+map.getBounds().getNorth()+"&lowerRightLng="+map.getBounds().getEast()+"&lowerRightLat="+map.getBounds().getSouth()+"&width="+g_GlobalStaticNumber.windowSize.x+"&height="+g_GlobalStaticNumber.windowSize.y+"&category="+g_tab2event.checkedCategoryLast;
+	}
 
+	/*
+	 * 施設データの表示
+	 */
+	function drawShop(){
+		console.log('drawShop');
+		previousShop = newShop;
+		map.removeLayer(previousShop);
+		newShop = new L.GeoJSON.AJAX(drawShopUrl() ,{style:strokeStyle});
+		newShop.addTo(map);
+	}
+	/*
+	 * 施設データの取得するためのURL
+	 */
+	function drawShopUrl(){
+		return "http://"+location.host+"/OsmLeafLet01_01/MainServlet?type=GetShopServlet&upperLeftLng="+map.getBounds().getWest()+"&upperLeftLat="+map.getBounds().getNorth()+"&lowerRightLng="+map.getBounds().getEast()+"&lowerRightLat="+map.getBounds().getSouth()+"&width="+g_GlobalStaticNumber.windowSize.x+"&height="+g_GlobalStaticNumber.windowSize.y+"&category="+g_tab2event.checkedCategoryLast;
+	}
 
 });

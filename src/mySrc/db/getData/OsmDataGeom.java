@@ -37,6 +37,8 @@ public class OsmDataGeom extends HandleDbTemplateSuper{
 	public ArrayList<String> _facilityName = new ArrayList<>();
 	/** 施設種別 */
 	public ArrayList<String> _facilityType = new ArrayList<>();
+	/** geojson形式 */
+	public ArrayList<String> _geojson = new ArrayList<>();
 	
 	public OsmDataGeom() {
 		super(DBNAME, USER, PASS, DBURL, HandleDbTemplateSuper.POSTGRESJDBCDRIVER_STRING);
@@ -51,7 +53,7 @@ public class OsmDataGeom extends HandleDbTemplateSuper{
 		try{
 			String stmt = "" +
 					"select " +
-						"osm_id, name, st_transform(way, 4326) as way, "+aColumnName+" " +
+						"osm_id, name, st_transform(way, 4326) as way, "+aColumnName+", ST_AsGeoJSON(st_transform(way, 4326)) as geojson " +
 					"from " +
 						""+TBNAME_POINT+" " +
 					"where " +
@@ -76,6 +78,7 @@ public class OsmDataGeom extends HandleDbTemplateSuper{
 				_facilityName.add(rs.getString("name"));
 				_facilityType.add(rs.getString(aColumnName));
 				_facilityLocation.add(GeometryParsePostgres.pgGeometryToPoint2D((PGgeometry)rs.getObject("way")));
+				_geojson.add(rs.getString("geojson"));
 			}
 			System.out.println(_facilityName);
 			System.out.println(_facilityLocation);
@@ -93,7 +96,7 @@ public class OsmDataGeom extends HandleDbTemplateSuper{
 		try{
 			String stmt = "" +
 					"select " +
-						"osm_id, name, st_centroid(st_transform(way, 4326)) as way, "+aColumnName+" " +
+						"osm_id, name, st_centroid(st_transform(way, 4326)) as way, "+aColumnName+", ST_AsGeoJSON(st_centroid(st_transform(way, 4326))) as geojson " +
 					"from " +
 						""+TBNAME_POLYGON+" " +
 					"where " +
@@ -118,6 +121,7 @@ public class OsmDataGeom extends HandleDbTemplateSuper{
 				_facilityName.add(rs.getString("name"));
 				_facilityType.add(rs.getString(aColumnName));
 				_facilityLocation.add(GeometryParsePostgres.pgGeometryToPoint2D((PGgeometry)rs.getObject("way")));
+				_geojson.add(rs.getString("geojson"));
 			}
 			System.out.println(_facilityName);
 			System.out.println(_facilityLocation);
