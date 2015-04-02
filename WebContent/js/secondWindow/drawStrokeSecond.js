@@ -22,7 +22,7 @@ DrawStrokeSecond.prototype.drawStroke = function(){
 	// ajaxでjsonデータの受け取り.
 	$.ajax({
 	  type: 'GET',
-	  url: "http://localhost:8080/OsmLeafLet01_01/MainServlet?type=GetFatStrokeServlet&upperLeftLng="+this.upperLeftLngLat.lng+"&upperLeftLat="+this.upperLeftLngLat.lat+"&lowerRightLng="+this.lowerRightLngLat.lng+"&lowerRightLat="+this.lowerRightLngLat.lat+"&width="+this.windowSize.x+"&height="+this.windowSize.y+"&category=Amenity:parking&isGetAllStroke=true",
+	  url: "http://"+location.host+"/OsmLeafLet01_01/MainServlet?type=GetFatStrokeServlet&upperLeftLng="+this.upperLeftLngLat.lng+"&upperLeftLat="+this.upperLeftLngLat.lat+"&lowerRightLng="+this.lowerRightLngLat.lng+"&lowerRightLat="+this.lowerRightLngLat.lat+"&width="+this.windowSize.x+"&height="+this.windowSize.y+"&category=Amenity:parking&isGetAllStroke=true",
 		dataType: 'json',
 		success: function(json){
 			////////////////////////////////////////

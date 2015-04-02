@@ -11,7 +11,7 @@ function GlobalStaticNumber(){
 		// プロジェクト名.
 		this.projectName = "OsmLeafLet01_01";
 		// ホストのIPアドレス.
-		this.hostName =  "133.68.13.112:8080";
+		this.hostName =  location.host;
 		// ウインドウサイズ.
 		this.windowSize = {x:100, y:100};
 		// 中心の緯度経度.

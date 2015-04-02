@@ -9,9 +9,14 @@ $(function(){
 
 	// // OSMのタイルレイヤーを追加
 	var tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+//	var tileLayer = L.tileLayer('http://tsgMapServer.elcom.nitech.ac.jp/osm/{z}/{x}/{y}.png', {
 		attribution : '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 	});
 	tileLayer.addTo(map);
+	var tile2Layer = L.tileLayer('http://tsgMapServer.elcom.nitech.ac.jp/osm/{z}/{x}/{y}.png', {
+		attribution : '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+	});
+	tile2Layer.addTo(map);
 
 	// マーカーを表示.
 	// var mapMarker = L.marker([35.157789, 136.93096]);
@@ -27,7 +32,7 @@ $(function(){
 	};
 
 	// ストロークの表示.
-	var newStroke = new L.GeoJSON.AJAX("http://localhost:8080/OsmLeafLet01_01/MainServlet?type=GetFatStrokeServlet&upperLeftLng="+map.getBounds().getWest()+"&upperLeftLat="+map.getBounds().getNorth()+"&lowerRightLng="+map.getBounds().getEast()+"&lowerRightLat="+map.getBounds().getSouth()+"&width="+g_GlobalStaticNumber.windowSize.x+"&height="+g_GlobalStaticNumber.windowSize.y+"&category="+g_tab2event.checkedCategoryLast,{style:myStyle});
+	var newStroke = new L.GeoJSON.AJAX("http://"+location.host+"/OsmLeafLet01_01/MainServlet?type=GetFatStrokeServlet&upperLeftLng="+map.getBounds().getWest()+"&upperLeftLat="+map.getBounds().getNorth()+"&lowerRightLng="+map.getBounds().getEast()+"&lowerRightLat="+map.getBounds().getSouth()+"&width="+g_GlobalStaticNumber.windowSize.x+"&height="+g_GlobalStaticNumber.windowSize.y+"&category="+g_tab2event.checkedCategoryLast,{style:myStyle});
 	var previousStroke;
 	newStroke.addTo(map);
 
@@ -37,12 +42,14 @@ $(function(){
 	// レイヤーの構成
 	// ベースレイヤー(デフォルト表示).
 	var baseLayers = {
-	    "OpenStreetMap": tileLayer
+			"localOSM":tile2Layer,
+			"OpenStreetMap": tileLayer
 	};
 	// オーバーレイレイヤー(表示するかの選択可能).
 	var overlays = {
 //	    "Marker": mapMarker,
 //	    "road": road,
+				"stroke": newStroke
 	};
 	L.control.layers(baseLayers, overlays).addTo(map);
 
@@ -80,9 +87,9 @@ $(function(){
 		previousStroke = newStroke;
 		map.removeLayer(previousStroke);
 		// コンソールにurlを表示.
-		console.log("http://localhost:8080/OsmLeafLet01_01/MainServlet?type=GetFatStrokeServlet&upperLeftLng="+map.getBounds().getWest()+"&upperLeftLat="+map.getBounds().getNorth()+"&lowerRightLng="+map.getBounds().getEast()+"&lowerRightLat="+map.getBounds().getSouth()+"&width="+g_GlobalStaticNumber.windowSize.x+"&height="+g_GlobalStaticNumber.windowSize.y+"&category="+g_tab2event.checkedCategoryLast);
+		console.log("http://"+location.host+"/OsmLeafLet01_01/MainServlet?type=GetFatStrokeServlet&upperLeftLng="+map.getBounds().getWest()+"&upperLeftLat="+map.getBounds().getNorth()+"&lowerRightLng="+map.getBounds().getEast()+"&lowerRightLat="+map.getBounds().getSouth()+"&width="+g_GlobalStaticNumber.windowSize.x+"&height="+g_GlobalStaticNumber.windowSize.y+"&category="+g_tab2event.checkedCategoryLast);
 		// 再描画.
-		newStroke = new L.GeoJSON.AJAX("http://localhost:8080/OsmLeafLet01_01/MainServlet?type=GetFatStrokeServlet&upperLeftLng="+map.getBounds().getWest()+"&upperLeftLat="+map.getBounds().getNorth()+"&lowerRightLng="+map.getBounds().getEast()+"&lowerRightLat="+map.getBounds().getSouth()+"&width="+g_GlobalStaticNumber.windowSize.x+"&height="+g_GlobalStaticNumber.windowSize.y+"&category="+g_tab2event.checkedCategoryLast ,{style:myStyle});
+		newStroke = new L.GeoJSON.AJAX("http://"+location.host+"/OsmLeafLet01_01/MainServlet?type=GetFatStrokeServlet&upperLeftLng="+map.getBounds().getWest()+"&upperLeftLat="+map.getBounds().getNorth()+"&lowerRightLng="+map.getBounds().getEast()+"&lowerRightLat="+map.getBounds().getSouth()+"&width="+g_GlobalStaticNumber.windowSize.x+"&height="+g_GlobalStaticNumber.windowSize.y+"&category="+g_tab2event.checkedCategoryLast ,{style:myStyle});
 		 newStroke.addTo(map);
 	}
 
