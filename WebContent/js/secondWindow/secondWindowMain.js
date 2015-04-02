@@ -18,13 +18,15 @@ function SecondWindowGlobal(){
 		this.lowerRightLngLat = {lng: 0, lat: 0};
 		// 地図のスケール.
 		this.scale = 0;
+		// カテゴリ.
+		this.category = "";
 }
 
 $(function(){
 	// 発行したクッキーの取得（読み込み）
 	if (document.cookie) {
 		var cookies = document.cookie.split("; ");
-	//	console.log(cookies);
+		console.info(cookies);
 		for (var i = 0; i < cookies.length; i++) {
 			var str = cookies[i].split("=");
 			switch(str[0]){
@@ -55,6 +57,8 @@ $(function(){
 				case "scale":
 					g_secondWindowGlobal.scale = Number(str[1]) + 0;
 				break;
+				case "category":
+					g_secondWindowGlobal.category = str[1];
 			}
 		}
 	}

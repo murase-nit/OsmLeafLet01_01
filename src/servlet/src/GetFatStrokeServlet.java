@@ -79,7 +79,7 @@ public class GetFatStrokeServlet {
 		_category = request.getParameter("category");
 		_isGetAllStroke = Boolean.parseBoolean(request.getParameter("isGetAllStroke"));
 		_convert = new ConvertLngLatAppletCoordinate(_upperLeftLngLat, _lowerRightLngLat, _windowSize);
-		
+		System.out.println("category"+_category);
 		
 		// strokeを取り出す(geomデータはこっちを使う？).
 		_osmStrokeDataGeom = new OsmStrokeDataGeom();

@@ -22,9 +22,12 @@ DrawStrokeSecond.prototype.drawStroke = function(){
 	// ajaxでjsonデータの受け取り.
 	$.ajax({
 	  type: 'GET',
-	  url: "http://"+location.host+"/OsmLeafLet01_01/MainServlet?type=GetFatStrokeServlet&upperLeftLng="+this.upperLeftLngLat.lng+"&upperLeftLat="+this.upperLeftLngLat.lat+"&lowerRightLng="+this.lowerRightLngLat.lng+"&lowerRightLat="+this.lowerRightLngLat.lat+"&width="+this.windowSize.x+"&height="+this.windowSize.y+"&category=Amenity:parking&isGetAllStroke=true",
+	  url: "http://"+location.host+"/OsmLeafLet01_01/MainServlet?type=GetFatStrokeServlet&upperLeftLng="+this.upperLeftLngLat.lng+"&upperLeftLat="+this.upperLeftLngLat.lat+"&lowerRightLng="+this.lowerRightLngLat.lng+"&lowerRightLat="+this.lowerRightLngLat.lat+"&width="+this.windowSize.x+"&height="+this.windowSize.y+"&category="+g_secondWindowGlobal.category+"&isGetAllStroke=true",
 		dataType: 'json',
 		success: function(json){
+			console.log("カテゴリ");
+			console.log(g_secondWindowGlobal.category);
+
 			////////////////////////////////////////
 			g_drawStrokeSecond.strokeJson = json;	// g_drawStrokeSecond.strokeJson 呼び出し元のインスタンス変数にすることはできないか.
 			////////////////////////////////////////

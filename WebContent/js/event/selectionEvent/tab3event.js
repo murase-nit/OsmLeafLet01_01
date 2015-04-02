@@ -36,6 +36,7 @@ Tab3Event.prototype.openWindow = function(){
 	document.cookie = "windowX=" + g_GlobalStaticNumber.windowSize.x ;
 	document.cookie = "windowY=" + g_GlobalStaticNumber.windowSize.y ;
 	document.cookie = "scale=" + g_GlobalStaticNumber.scale;
+	document.cookie = "category=" +g_tab2event.checkedCategoryLast;
 	console.info(document.cookie);
 	// hrefで指定されたURLが別窓で開く
 	window.open('html/secondWindow.html','_blank', 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=yes, width=' + g_GlobalStaticNumber.windowSize.x + ', height=' + g_GlobalStaticNumber.windowSize.y);

@@ -32,7 +32,7 @@ DrawSecondMap.prototype.mapDraw = function(){
 		"center="+g_drawSecondMap._lngLat.lat+","+g_drawSecondMap._lngLat.lng+"&"+
 		"zoom="+g_drawSecondMap._scale+"&"+
 		"size="+g_drawSecondMap._windowSize.x+"x"+g_drawSecondMap._windowSize.y+"&maptype=mapnik";
-	g_drawSecondMap.ctx.scale(1.0,1.0);
+	g_drawSecondMap.ctx.scale(1.0, 1.0);
 	g_drawSecondMap.mapImage = g_drawSecondMap.img;
 	g_drawSecondMap.img.onload = function() {
 		//refer to http://www.html5.jp/canvas/how6.html
