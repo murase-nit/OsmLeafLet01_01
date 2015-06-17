@@ -1,7 +1,13 @@
 # はじめに
+以下のページを参考にしてください
+http://rain.elcom.nitech.ac.jp/tsg-wiki/index.php?muraseSystem
 
+以下のURLで表示できます
+http://rain2.elcom.nitech.ac.jp:8080/OsmLeafLet01_01/index.html
 
 # バージョン履歴
+## ver0.0.5
+generalizeボタンで表示した地図上にマーカーを表示するようにした
 ## ver0.0.4
 地図の変形の画面で道路の描画，動的選択可能になった．カテゴリの選択が使えるようになった
 ## ver0.0.3
