@@ -19,8 +19,8 @@ function DrawSecondMap(aLngLat, scale, aWindowSize){
 DrawSecondMap.prototype.mapDraw = function(){
 	// 地図画像描画用のcancasタグ大きさ設定.
 	$("#secondPanel canvas").attr({
-		width:g_GlobalStaticNumber.windowSize.x,
-		height:g_GlobalStaticNumber.windowSize.y
+		width:g_secondWindowGlobal.windowSize.x,
+		height:g_secondWindowGlobal.windowSize.y
 	});
 	
 	var canvas = document.getElementById('layer0');
