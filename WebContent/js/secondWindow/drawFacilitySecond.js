@@ -65,8 +65,7 @@ DrawFacilitySecond.prototype.resizeFacility = function(aResizeX, aResizeY){
 //		console.info(g_drawSecondMap);
 //		console.info(g_drawFacilitySecond.facilityPoint[i].x);
 //		console.info(g_drawFacilitySecond.facilityPoint[i].y);
-			context.drawImage(img, g_drawFacilitySecond.facilityPoint[i].x*g_drawSecondMap.xScale-15,
-			 g_drawFacilitySecond.facilityPoint[i].y*g_drawSecondMap.yScale-41);
+			context.drawImage(img, g_drawFacilitySecond.facilityPoint[i].x*g_drawSecondMap.xScale, g_drawFacilitySecond.facilityPoint[i].y*g_drawSecondMap.yScale);
 	}
 };
 
