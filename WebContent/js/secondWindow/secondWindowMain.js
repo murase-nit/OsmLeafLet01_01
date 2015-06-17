@@ -1,11 +1,16 @@
 /*
  * secondWindowに関するメインのファイル
  */
+// 地図の描画に関するクラス
 var g_drawSecondMap;
+// ストロークの描画に関するクラス
 var g_drawStrokeSecond;
+// リサイズに関するクラス
 var g_secondWindowResizeEvent;
-
+// 別ウインドウで表示した地図に関する変数を持つ
 var g_secondWindowGlobal = new SecondWindowGlobal();
+// 施設データ表示に関するクラス
+var g_drawFacilitySecond;
 
 function SecondWindowGlobal(){
 		// ウインドウサイズ.
@@ -62,7 +67,7 @@ $(function(){
 			}
 		}
 	}
-console.info(g_secondWindowGlobal);
+	console.info(g_secondWindowGlobal.windowSize);
 // 地図の描画.
 	g_drawSecondMap = new DrawSecondMap(
 		g_secondWindowGlobal.centerLngLat,
@@ -79,9 +84,13 @@ console.info(g_secondWindowGlobal);
 	g_drawStrokeSecond.drawStroke();
 
 	g_secondWindowResizeEvent = new SecondWindowResizeEvent();
-
-
-
+// 施設データの描画.
+	g_drawFacilitySecond = new DrawFacilitySecond(
+		null,
+		g_secondWindowGlobal.upperLeftLngLat,
+		g_secondWindowGlobal.lowerRightLngLat,
+		g_secondWindowGlobal.windowSize);
+	g_drawFacilitySecond.drawFacility();
 });
 
 
@@ -94,6 +103,7 @@ $(window).resize(function() {
 
 	g_secondWindowResizeEvent.resizeWindow();
 	g_secondWindowResizeEvent.resizeStroke();
+	g_secondWindowResizeEvent.resizeFacility();
 	//console.log($(window).width());
 });
 

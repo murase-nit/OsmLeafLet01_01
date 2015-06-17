@@ -18,3 +18,10 @@ SecondWindowResizeEvent.prototype.resizeWindow = function (){
 SecondWindowResizeEvent.prototype.resizeStroke = function (){
 	g_drawStrokeSecond.resizeStroke($(window).width(), $(window).height());
 };
+
+/**
+ * ウインドウのサイズに応じて施設データの表示を変更
+ */
+SecondWindowResizeEvent.prototype.resizeFacility = function(){
+	g_drawFacilitySecond.resizeFacility($(window).width(), $(window).height());
+};
