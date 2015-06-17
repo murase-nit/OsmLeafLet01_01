@@ -20,8 +20,8 @@ public class OsmFatStroke extends HandleDbTemplateSuper{
 	private static final String DBNAME = "osm_relation_db";	// Database Name
 	private static final String TBNAME = "fatstroke_table";
 	private static final String USER = "postgres";			// user name for DB.
-	private static final String PASS = "murase";		// password for DB.
-	private static final String URL = "localhost";
+	private static final String PASS = "usadasql";		// password for DB.
+	private static final String URL = "rain2.elcom.nitech.ac.jp";
 	private static final int PORT = 5432;
 	private static final String DBURL = "jdbc:postgresql://"+URL+":"+PORT+"/" + DBNAME;
 	
