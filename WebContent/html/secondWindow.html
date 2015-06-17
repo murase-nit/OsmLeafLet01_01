@@ -26,6 +26,7 @@
 <!-- 地図の描画 -->
 <script type="text/javascript" src="../js/secondWindow/drawSecondMap.js"></script>
 <script type="text/javascript" src="../js/secondWindow/drawStrokeSecond.js"></script>
+<script type="text/javascript" src="../js/secondWindow/drawFacilitySecond.js"></script>
 <!-- イベント取得 -->
 <script type="text/javascript" src="../js/event/resizeEvent.js"></script>
 <script type="text/javascript" src="../js/secondWindow/secondWindowResizeEvent.js"></script>
@@ -43,6 +44,9 @@
 	<canvas id="layer1" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
 	<canvas id="layer2" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
 	<canvas id="layer3" style="position: absolute; left: 0; top: 0; z-index: 3;"></canvas>
+	<!-- imgタグはおまじない -->
+	<img src="./../img/marker-icon.png" style="position: absolute; left: 0; top: 0; z-index: -1;">
+	
 	<canvas id="aa" style="position: absolute; left: 0; top: 0; z-index: 999;"></canvas>
 	<!-- イベント取得用キャンバスタグ -->
 	<canvas id="eventLayer" style="position: absolute; left: 0; top: 0; z-index: 9999;"></canvas>
