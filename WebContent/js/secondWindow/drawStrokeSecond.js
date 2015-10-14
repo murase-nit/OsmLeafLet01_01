@@ -110,5 +110,8 @@ DrawStrokeSecond.distance = function(p1,p2) {
 	a = p1.x - p2.x;
 	b = p1.y - p2.y;
 	d = Math.sqrt(Math.pow(a,2) + Math.pow(b,2));
+	if(isNaN(d)){
+		d=0;
+	}
 	return d;
 };
