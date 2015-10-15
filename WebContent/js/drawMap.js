@@ -101,7 +101,14 @@ $(function(){
 	 * 道路を取得するためのURL
 	 */
 	function drawStrokeUrl(){
-		return "http://"+location.host+"/OsmLeafLet01_01/MainServlet?type=GetFatStrokeServlet&upperLeftLng="+map.getBounds().getWest()+"&upperLeftLat="+map.getBounds().getNorth()+"&lowerRightLng="+map.getBounds().getEast()+"&lowerRightLat="+map.getBounds().getSouth()+"&width="+g_GlobalStaticNumber.windowSize.x+"&height="+g_GlobalStaticNumber.windowSize.y+"&category="+g_tab2event.checkedCategoryLast;
+		return "http://"+location.host+"/OsmLeafLet01_01/MainServlet?" +
+					"type=GetFatStrokeServlet&upperLeftLng="+map.getBounds().getWest()+"" +
+					"&upperLeftLat="+map.getBounds().getNorth()+"" +
+					"&lowerRightLng="+map.getBounds().getEast()+"" +
+					"&lowerRightLat="+map.getBounds().getSouth()+"" +
+					"&width="+g_GlobalStaticNumber.windowSize.x+"" +
+					"&height="+g_GlobalStaticNumber.windowSize.y+"" +
+					"&category="+g_tab2event.checkedCategoryLast;
 	}
 
 	/*
